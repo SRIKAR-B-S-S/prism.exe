@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>prism.exe</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/x-icon" href="/assets/prism.exe-logo.ico">
+  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/prism.exe-logo.ico">
 </head>
 <body>
 
@@ -32,8 +32,43 @@
       </form>
     </section>
 
-  </main>
+  <!-- Adding the Notepad Window Here! -->
+   <div class="xp-window">
+        <!--Header Bar of the window-->
+        <div class="xp-titlebar">
+          <div class="xp-titlebar-text">
+            <img src="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/notepad.png" alt="Notepad" class="xp-title-icon" />
+            Untitled - Notepad
+        </div>
+        <div class="xp-titlebar-controls"> <!-- WinXP kind of window controls -->
+          <button class="xp-control-btn xp-minimize" aria-label="Minimize" disabled>–</button>
+          <button class="xp-control-btn xp-maximize" aria-label="Maximize" disabled>☐</button>
+          <button class="xp-control-btn xp-close" aria-label="Close" disabled>✕</button>
+        </div>
+      </div>
 
+   <!-- Menu Bar here -->
+    <div class="xp-menubar"> <!-- Gave all the menu items a first letter underline -->
+      <span class="menu-item"><u>F</u>ile</span>
+      <span class="menu-item"><u>E</u>dit</span>
+      <span class="menu-item"><u>F</u>ormat</span>
+      <span class="menu-item"><u>V</u>iew</span>
+      <span class="menu-item"><u>H</u>elp</span>
+    </div>
+  
+
+  <!-- The main text-area of the notepad here -->
+    <div class="notepad-body">
+      <textarea id="xp-notepad" placeholder="Type your notes here..."></textarea>
+    </div>
+
+  <!-- The bottombar of notepad window -->
+   <div class="xp-statusbar"> <!-- It's just static text and doesn't update according to the text -->
+    <span id="char-count">Ln 1, Col 1</span>
+    <span>UTF-8</span>
+   </div>
+</div>
+  </main>
+<script src="script.js"></script>
 </body>
 </html>
-<script src="script.js"></script>
