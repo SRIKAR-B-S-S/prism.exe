@@ -1,20 +1,46 @@
+function isURL(string) {
+    if(string.includes(' ')) return false;
+
+    try {
+
+        const hasProtocol = string.startsWith('https://') || string.startsWith('http://');
+        const urlToCheck = hasProtocol ? string: 'https://' + string;
+        //above two lines add https:// or http:// if the entered url doesn't contain them
+
+        parsedURL = new URL(urlToCheck);
+
+        return parsedURL.hostname.includes('.'); //returns true if the url contains a dot(.) because that's a must for a valid URL
+    }
+    catch(_) {
+        return false;
+    }
+}
+
+
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
-// Added Listener for Search button (ie. submit event)
-searchForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+// Updated Listener for Search button, differentiated the searchbar into two parts - 1. Text/keyword entered - takes the user to google [or] 2. URL entered - takes the user to that website
 
-    let query = searchInput.value.trim();
+if (searchForm && searchInput) {
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    if (!query) return;
+        const rawInput = searchInput.value.trim();
+        if (!rawInput) return; // do nothing if the searchbar is empty
 
-    if (!query.startsWith('http://') && !query.startsWith('https://')) {
-    query = 'https://' + query;
-    }
-
-    window.location.href = query;
-});
+        if (isURL(rawInput)) { // if the user entered a URL, it takes redirects to that website.
+            // the above if statment uses the funcion which we defined at the starting of the page if the give input in searchbar is a url or not
+            const targetUrl = rawInput.startsWith('https://') || rawInput.startsWith('http://') ? rawInput : 'https://' + rawInput;
+            window.location.href = targetUrl;
+        }
+        else { // does this if the user entered a keyword or text in the searchbar, ie. opens google with that text searched
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(rawInput)}`;
+            window.location.href = searchUrl;
+        }
+        
+    });
+}
 
 // JS for Notepad
 const notepadWindow = document.getElementById('notepad-window');
