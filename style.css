@@ -39,7 +39,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 10;
+  z-index: 30;
 }
 
 .search-form {
@@ -231,4 +231,47 @@
 .xp-control-btn:disabled {
   opacity: 0.85;
   cursor: default;
+}
+
+/* Added styles for desktop icon below */
+
+.desktop-icon {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  padding: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+/* Windows XP styled desktop icon */
+.desktop-icon:hover {
+  background-color: rgba(49, 106, 197, 0.15);
+  border-color: rgba(49, 106, 197, 0.3);
+}
+
+.desktop-icon:active {
+  background-color: rgba(49, 106, 197, 0.3);
+  border-color: rgba(49, 106, 197, 0.6);
+}
+
+.icon-label {
+  color: #ffffff;
+  font-size: 11px;
+  font-family: 'Tahoma', sans-serif;
+  text-shadow: 1px 1px 2px #000000, 0 0 4px #000000;
+}
+
+.icon-img {
+  margin-bottom: 4px;
+}
+
+.xp-control-btn {
+  cursor: pointer;
 }
