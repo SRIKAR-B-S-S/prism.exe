@@ -35,7 +35,7 @@
 
 /* CSS for Search Bar Layout */
 .search-container {
-  margin-top: 22vh;
+  margin-top: 19vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -95,7 +95,7 @@
   box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
 }
 
-/* Windows XP Notepad Window ⬇ */
+/* Windows XP Notepad Window ⬇ */ /* Few of these are used for Bookmarks Manager Window too! */
 .xp-title-icon {
   width: 16px;
   height: 16px;
@@ -209,7 +209,7 @@
 .xp-control-btn {
   width: 21px;
   height: 21px;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   font-size: 11px;
   font-weight: bold;
   color: #ffffff;
@@ -222,6 +222,7 @@
   box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.8);
   padding: 0;
   line-height: 1;
+  cursor: pointer;
 }
 
 .xp-control-btn.xp-close {
@@ -237,8 +238,6 @@
 
 .desktop-icon {
   position: absolute;
-  bottom: 24px;
-  left: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -261,17 +260,114 @@
   border-color: rgba(49, 106, 197, 0.6);
 }
 
+#notepad-icon {
+  bottom: 24px;
+  left: 24px;
+}
+
+#bookmarks-manager-icon {
+  bottom: 24px;
+  left: 120px;
+}
+
+.bookmarks-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  z-index: 10;
+}
+
+.bookmarks-bg .bookmark-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border: 1.5px solid rgba(49, 106, 197, 0.3);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.bookmark-label {
+  padding-top: 2px;
+  color:#ffffff;
+  font-size: 14px;
+  font-family: 'Tahoma';
+  text-shadow: 1px 1px 2px #000, 0 0 4px #000;
+}
+
+.bookmark-img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.bookmarks-bg .bookmark-card:hover {
+  background-color: rgba(49, 106, 197, 0.15);
+}
+
+.add-bookmarks {
+  padding: 10px;
+  background-color: var(--xp-window-bg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bm-form {
+  display: flex;
+  gap: 6px;
+}
+
+.bm-form input {
+  flex: 1;
+  padding: 4px;
+  border: 1px solid #7f9db9;
+  outline: none; /*this removes the black borders from the input fields*/
+}
+
+.bm-list {
+  flex: 1;
+  background: #ffffff;
+  border: 2px solid #7f9db9;
+}
+
+.bm-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 12px;
+  font-family: 'Tahoma';
+}
+
+.bm-delete-btn {
+  background: #e81123;
+  color: white;
+  border: none; /* removes the ugly border from the buttons just like removing the outline on the input fields */
+  padding: 2px 6px;
+  font-size: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 .icon-label {
   color: #ffffff;
   font-size: 11px;
-  font-family: 'Tahoma', sans-serif;
+  font-family: 'Tahoma';
   text-shadow: 1px 1px 2px #000000, 0 0 4px #000000;
 }
 
 .icon-img {
+  height: 32px;
+  width: 32x;
   margin-bottom: 4px;
 }
 
-.xp-control-btn {
-  cursor: pointer;
+.no-bookmarks-text {
+  margin-top: 25px; /* I gave a little spacing for the note from the top so that it doesn't seem to merge with the searchbar*/
 }

@@ -85,3 +85,83 @@ if (btnClose) btnClose.addEventListener('click', hideNotepad);
 
 if (notepadIcon) notepadIcon.addEventListener('click', showNotepad);
 
+
+let bookmarks = JSON.parse(localStorage.getItem('prism_bookmarks')) || [];
+
+const bmView = document.getElementById('bookmarks-div');
+const bmWindow = document.getElementById('bookmarksmanager-window');
+const bmAppIcon = document.getElementById('bookmarks-manager-icon');
+const bmCloseBtn = document.querySelector('.xp-bm-close');
+const bmForm = document.getElementById('bm-form');
+const bmNameInput = document.getElementById('bm-name-input');
+const bmUrlInput = document.getElementById('bm-url-input');
+const bmList = document.getElementById('bm-list-items');
+
+function updateBookmarksUI() {
+        bmView.innerHTML = '';
+        bmList.innerHTML = '';
+    if (bookmarks.length === 0) { // shows the user that he has no bookmarks added currently
+        const emptyNotice = document.createElement('p');
+        emptyNotice.className = 'no-bookmarks-text';
+        emptyNotice.textContent = 'No bookmarks added currently, add them from Bookmarks Manager';
+        bmView.appendChild(emptyNotice);
+    } 
+    
+    else {
+        bookmarks.forEach((item, index) => { //if atleast one bookmark(or more obviously) is found, it displays it 1-under the searchbar and 2-in the bookmarks manager
+            let siteUrl = item.url;
+            if (!siteUrl.startsWith('https://') && !siteUrl.startsWith('http://')) {
+                siteUrl = 'https://' + siteUrl;
+            }
+
+        const card = document.createElement('div');
+        card.className = 'bookmark-card';
+        const iconUrl = 'https://www.google.com/s2/favicons?sz=64&domain_url=' + siteUrl;
+
+        card.innerHTML = `<img src=${iconUrl} class="bookmark-img"/> <span class="bookmark-label">${item.name}</span>`
+
+        card.addEventListener('click', () => {
+            window.location.href = siteUrl;
+        });
+        bmView.appendChild(card);
+
+        const li = document.createElement('li');
+        li.className = 'bm-list-item';
+        li.innerHTML = `<span><strong>${item.name}</strong> (${item.url})</span>       <button class="bm-delete-btn" onClick="removeBookmark(${index})">Remove</button>`;
+        
+        bmList.appendChild(li);
+        });
+    }
+    localStorage.setItem('prism_bookmarks', JSON.stringify(bookmarks)); // removed this line which was previously in the else{}, which did not allow the user's most recently added bookmark to be removed, like it made the user's most recently added bookmark to appear again after removing it when the website was reloaded.
+
+if (bmForm){
+    bmForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if(bookmarks.length >= 6) { //Just in case if the user tries to add more than 6 bookmarks, because as far as I've designed, 6 bookmarks feel perfect under the searchbar
+            alert(`Maximum limit reached! You can store only upto 6 bookmarks!`);
+            return;
+        }
+
+        const name = bmNameInput.value.trim();
+        const url = bmUrlInput.value.trim();
+
+        if (name && url) {
+            bookmarks.push({name,url});
+            bmNameInput.value = '';
+            bmUrlInput.value = '';
+            updateBookmarksUI();
+        }
+    });
+}
+}
+
+window.removeBookmark = function(index) {
+    bookmarks.splice(index, 1);
+    updateBookmarksUI();
+};
+
+if (bmAppIcon) bmAppIcon.addEventListener('click', () => bmWindow.classList.remove('hidden'));
+if (bmCloseBtn) bmCloseBtn.addEventListener('click', () => bmWindow.classList.add('hidden'));
+
+updateBookmarksUI();

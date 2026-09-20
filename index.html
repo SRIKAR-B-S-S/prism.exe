@@ -38,6 +38,37 @@
       <span class="icon-label">Notepad</span>
      </div>
 
+    <!-- Added an icon for Bookmarks Manager too -->
+    <div class="desktop-icon" id="bookmarks-manager-icon">
+      <img src="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/bookmarks-manager.png" class="icon-img"/>
+      <span class="icon-label">Manager</span>
+    </div>
+
+<div id="bookmarks-div" class="bookmarks-bg"> </div> <!-- the bookmarks will be visible here, I'll be placing it below the searchbar -->
+
+<!-- Will be adding the Bookmarks Manager Window here-->
+ <div id="bookmarksmanager-window" class="xp-window hidden">
+  <div class="xp-titlebar">
+    <div class="xp-titlebar-text">
+      <img src="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/bookmarks-manager.png" class="xp-title-icon"> Bookmarks Manager
+    </div>
+    <div class="xp-titlebar-controls"><button class="xp-control-btn xp-bm-close" aria-label="Close">✕</button></div>
+  </div>
+
+ <div class="add-bookmarks">
+    <form id="bm-form" class="bm-form"> <!-- shortened the `bookmarksmanager` to `bm` now-->
+      <input type="text" id="bm-name-input" placeholder="Name">
+      <input type="text" id="bm-url-input" placeholder="URL">
+      <button type="submit" class="xp-btn">Add</button>
+    </form>
+
+    <div class="bm-list">
+      <ul id="bm-list-items" class="bm-list-items"></ul>
+    </div>
+ </div>
+</div>
+
+
   <!-- Adding the Notepad Window Here! -->
    <div id="notepad-window" class="xp-window">
         <!--Header Bar of the window-->
