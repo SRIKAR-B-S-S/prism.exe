@@ -133,8 +133,9 @@ function updateBookmarksUI() {
         });
     }
     localStorage.setItem('prism_bookmarks', JSON.stringify(bookmarks)); // removed this line which was previously in the else{}, which did not allow the user's most recently added bookmark to be removed, like it made the user's most recently added bookmark to appear again after removing it when the website was reloaded.
+}
 
-if (bmForm){
+if (bmForm){ //moved this out of the update bookmarks function as it previously caused the website to show the Maximum Alert dialog 7 times and it also showed the Maximum Alert dialog when adding the 6th bookmark(which it shouldn't!)
     bmForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -154,7 +155,6 @@ if (bmForm){
         }
     });
 }
-}
 
 window.removeBookmark = function(index) {
     bookmarks.splice(index, 1);
@@ -165,3 +165,91 @@ if (bmAppIcon) bmAppIcon.addEventListener('click', () => bmWindow.classList.remo
 if (bmCloseBtn) bmCloseBtn.addEventListener('click', () => bmWindow.classList.add('hidden'));
 
 updateBookmarksUI();
+
+// Everything about the Background Settings below!
+
+const THEME_PRESETS = [
+{
+    id: 'default-silver',
+    name: 'Silver Explorer',
+    bg: 'radial-gradient(circle at center, #f5f7fa 0%, #e4e8ec 100%)',
+    logoColor: '#4a5568'
+},
+{
+    id: 'dark-UI',
+    name: 'Dark UI',
+    bg: 'radial-gradient(circle at center, #2d3748 0%, #1a202c 100%)',
+    logoColor: '#cbd'
+},
+{
+    id: 'mint',
+    name: 'Mint',
+    bg: 'radial-gradient(circle at center, #c9eeff 0%, #43a6b5 100%',
+    logoColor: '#ffc3c3'
+},
+{
+    id: 'purple',
+    name: 'Pleasant Purple',
+    bg: 'radial-gradient(circle at center, #877bb0 0%, #51486e 100%',
+    logoColor: '#dcd1ff'
+},
+{
+    id:'nature',
+    name: 'Nature',
+    bg: 'radial-gradient(circle at center, #9fc7a0 0%, #88b98a 100%',
+    logoColor: '#ffff70'
+},
+{
+    id: 'pink',
+    name: 'Pink!',
+    bg: 'radial-gradient(circle at center, #fab4e5 0%, #cc6496b0 100%',
+    logoColor: '#6e0e49'
+}
+];
+
+const settingsWindow = document.getElementById('settings-window');
+const settingsIcon = document.getElementById('settings-icon');
+const settingsClosebtn = document.querySelector('.xp-settings-close');
+const themeDiv = document.getElementById('theme-options-div');
+
+function applyTheme(theme) { // this is function to apply the selected theme by the user in Settings window
+    document.documentElement.style.setProperty('--desktop-bg', theme.bg);
+    document.documentElement.style.setProperty('--logo-color', theme.logoColor);
+    localStorage.setItem('prism_selected_theme', theme.id);
+
+    document.querySelectorAll('.theme-option').forEach((card) => {    // gives the active state for the selected theme option
+        card.classList.toggle('active', card.dataset.themeId === theme.id);
+    });
+}
+
+function initThemeSettings() {
+    const savedThemeId = localStorage.getItem('prism_selected_theme') || 'default-silver'; //retrieves previously saved theme & if nothing found uses the default background if its the user's first time
+    let activeTheme = THEME_PRESETS.find((t) => t.id === savedThemeId) || THEME_PRESETS[0]; //searches for saved themes from the above data of theme presets
+
+    THEME_PRESETS.forEach((theme) => { // For each object in the theme presets data, it will create styles and add them into the settings window(along w/ the click listener)
+        const card = document.createElement('div');
+        card.className = `theme-option ${theme.id === activeTheme.id ? 'active' : ''}`;
+        card.dataset.themeId = theme.id;
+
+        const preview = document.createElement('div');
+        preview.className = 'theme-preview';
+        preview.style.background = theme.bg;
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = theme.name;
+
+        card.appendChild(preview);
+        card.appendChild(nameSpan);
+
+        card.addEventListener('click', () => applyTheme(theme)); //a click on the theme option would make apply that theme using the function which we defined above.
+        themeDiv.appendChild(card);
+    }
+);
+applyTheme(activeTheme);
+}
+
+if (settingsIcon) settingsIcon.addEventListener('click', () => settingsWindow.classList.remove('hidden'));
+if (settingsClosebtn) settingsClosebtn.addEventListener('click', () => settingsWindow.classList.add('hidden'));
+//out of the above two, one makes the window visible when clicked on the desktop icon and the other minimizes the settings window when the close button is clicked.
+
+initThemeSettings();

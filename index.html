@@ -44,6 +44,12 @@
       <span class="icon-label">Manager</span>
     </div>
 
+    <!-- Icon for Background Settings below -->
+  <div class="desktop-icon" id="settings-icon">
+    <img src="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/settings.png" class="icon-img"/>
+    <span class="icon-label">Settings</span>
+  </div>
+
 <div id="bookmarks-div" class="bookmarks-bg"> </div> <!-- the bookmarks will be visible here, I'll be placing it below the searchbar -->
 
 <!-- Will be adding the Bookmarks Manager Window here-->
@@ -105,6 +111,25 @@
     <span>UTF-8</span>
    </div>
 </div>
+
+<!-- Settings Window below! -->
+<div id="settings-window" class="xp-window hidden">
+  <div class="xp-titlebar">
+    <div class="xp-titlebar-text">
+      <img src="https://raw.githubusercontent.com/SRIKAR-B-S-S/prism.exe/refs/heads/main/assets/settings.png" class="xp-title-icon"/>Settings</div>
+    <div class="xp-titlebar-controls">
+      <button class="xp-control-btn xp-settings-close" aria-label="Close">✕</button>
+    </div>
+  </div>
+
+  <div class="settings-body">
+    <p class="settings-label">Select a desktop background:</p>
+    <div id="theme-options-div" class="theme-options-div">
+      <!-- The theme options will be visible here(added from JS) -->
+    </div>
+  </div>
+</div>
+
   </main>
 <script src="script.js"></script>
 </body>
