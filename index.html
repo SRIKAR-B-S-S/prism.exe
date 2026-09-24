@@ -107,6 +107,7 @@
 
   <!-- The bottombar of notepad window -->
    <div class="xp-statusbar"> <!-- It's just static text and doesn't update according to the text -->
+    <!-- EDIT: It's not static anymore! It updates the character count as the user types, it's some small detailing! But I'm still keeping the Ln 1, Col 1 text as they are the classic elements of the Notepad -->
     <span id="char-count">Ln 1, Col 1</span>
     <span>UTF-8</span>
    </div>
@@ -130,6 +131,15 @@
   </div>
 </div>
 
+<!-- Added a time widget which looks like the system tray on Windows XP -->
+<div class="time-widget">
+  <span id="time">09:41 AM</span>
+</div>
+
+<!-- Also added an info widget which gives info about a random tech device from the Y2K era (data gets added into this span from JS)-->
+<div class="info-widget">
+  <span id="info">Heyy! there's some info here...</span>
+</div>
   </main>
 <script src="script.js"></script>
 </body>

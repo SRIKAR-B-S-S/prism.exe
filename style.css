@@ -433,3 +433,43 @@
   border-radius: 3px;
   border: 1px solid #999;
 }
+
+.time-widget {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 6px;
+  border-top: 1px solid #002e99;
+  border-left: 1px solid #002e99;
+  padding: 4px 12px;
+  font-family: 'Tahoma';
+  font-size: 11px;
+}
+
+.time-widget.white { /* This would be applied from JS when a dark coloured theme is selected by the user and the time-widget color changes to white instead of the usual black enabling people to view it easily*/
+  border-top: 1px solid rgb(212, 212, 212);
+  border-left: 1px solid rgb(212, 212, 212);
+  color: white;
+}
+
+.info-widget { /* Wanted it to look like a pop-up from the side so, right position is zero and added the borders on only three sizes*/
+  position: absolute;
+  right: 0;
+  bottom: 36px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top: 2px solid #002686;
+  border-left: 2px solid #002686;
+  border-bottom: 2px solid #002686;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 4px;
+  background-color: #efeee5; /* I randomly got this color on the color picker and it suits absolutely well just like the dialog of windows XP ig */
+  width: 300px;
+}
+
+#info {
+  font-size: 12px;
+  font-family: 'Verdana'; /*A perfect font for this dialog!!*/
+}

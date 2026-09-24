@@ -63,7 +63,12 @@ if (savedNotes !== null && notepadEditor) {
 // This part saves the content as the user types:
 if (notepadEditor) {
     notepadEditor.addEventListener('input', () => {
-    localStorage.setItem('prism_notepad_content', notepadEditor.value)
+    localStorage.setItem('prism_notepad_content', notepadEditor.value);
+
+    const charCount = document.getElementById('char-count');
+    if (charCount) {
+        charCount.textContent = `Ln 1, Col 1 | Char: ${notepadEditor.value.length}`; // updates the no.of characters as the user types
+    }
     });
 }
 
@@ -215,6 +220,11 @@ const themeDiv = document.getElementById('theme-options-div');
 function applyTheme(theme) { // this is function to apply the selected theme by the user in Settings window
     document.documentElement.style.setProperty('--desktop-bg', theme.bg);
     document.documentElement.style.setProperty('--logo-color', theme.logoColor);
+
+    if (theme.id == 'dark-UI' || theme.id == 'purple') { // added this so that it automatically changes the color of time-widget to white for the two dark coloured background which are darkUI and purple
+        document.querySelector('.time-widget').classList.add('white');
+    } else {document.querySelector('.time-widget').classList.remove('white')}
+
     localStorage.setItem('prism_selected_theme', theme.id);
 
     document.querySelectorAll('.theme-option').forEach((card) => {    // gives the active state for the selected theme option
@@ -253,3 +263,41 @@ if (settingsClosebtn) settingsClosebtn.addEventListener('click', () => settingsW
 //out of the above two, one makes the window visible when clicked on the desktop icon and the other minimizes the settings window when the close button is clicked.
 
 initThemeSettings();
+
+function updateClock() {
+    const timeDiv = document.getElementById('time');
+
+    if (!timeDiv) return;
+    const now = new Date();
+    
+    const Time = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+    
+    const weekday = now.toLocaleDateString([], {weekday: 'short'});
+    const day = now.toLocaleDateString([], {day: '2-digit'});
+    const month = now.toLocaleDateString([], {month: '2-digit'});
+    const year = now.toLocaleDateString([], {year:'2-digit'});
+
+    timeDiv.textContent = day + "/" + month + "/" + year + " | " + Time; // gives an output like - DD/MM/YY | HH:MM AM/PM
+}
+
+updateClock();
+setInterval(updateClock, 1000); //updates the clock every 1000ms which is 1s
+
+// Added function to retrieve data about a random tech device from the Y2K era using the API data of my last project!
+const infoLabel = document.getElementById('info');
+async function getData() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/SRIKAR-B-S-S/Cyber3000/refs/heads/main/API/y2ktech.json');
+        const data = await response.json();
+
+        const random_itemIndex = Math.floor(Math.random() * data.length); //gets a random object from the .json file
+        
+        const random_item = data[random_itemIndex]; //fetches the data of that random object using its index
+        infoLabel.innerHTML = `<b>${random_item.name}</b>: ${random_item.details}`; //adds the details to html <span>
+    }
+    catch (error) {
+        infoLabel.textContent = 'Error :(';
+    }
+}
+
+getData();
